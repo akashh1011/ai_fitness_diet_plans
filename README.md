@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏋️‍♂️ AI Fitness Coach – Next.js + Gemini 2.0
 
-## Getting Started
+An AI-powered fitness assistant built with **Next.js 14**, **TypeScript**, and **Tailwind CSS** that generates **personalized workout & diet plans** using **LLMs (Gemini 2.0 via OpenRouter)**.
 
-First, run the development server:
+It also supports:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 💬 AI-generated tips & motivation  
+- 🎙️ Voice playback (reads out your plans)  
+- 🖼️ AI-style exercise & meal images  
+- ⬇️ One-click **download** of your full fitness plan as a text file  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Smart User Input Form
 
-## Learn More
+Users can enter detailed fitness information:
 
-To learn more about Next.js, take a look at the following resources:
+- **Basic info**: Name, Age, Gender  
+- **Body metrics**: Height (cm), Weight (kg)  
+- **Fitness goal**:
+  - `Weight Loss`
+  - `Muscle Gain`
+  - `General Fitness`
+- **Current fitness level**:
+  - `Beginner`, `Intermediate`, `Advanced`
+- **Workout location**:
+  - `Home`, `Gym`, `Outdoor`
+- **Diet type**:
+  - `Veg`, `Non-Veg`, `Vegan`, `Keto`
+- **Optional fields**:
+  - Medical history (injuries, conditions)
+  - Stress level (`Low`, `Medium`, `High`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+All of this data is sent to the AI to generate a tailored plan.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+### 2. AI-Powered Plan Generation (Gemini 2.0 via OpenRouter)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The backend exposes an API route:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `POST /api/generate-plan`
+
+It uses:
+
+- **Model**: `google/gemini-2.0-flash-exp:free` (configurable)  
+- **Provider**: [OpenRouter](https://openrouter.ai/)
+
+For each user, it generates:
+
+- 🏋️ **Workout Plan**:  
+  - 7-day structured workout  
+  - Exercises, sets, reps, rest times  
+  - Full body, cardio, strength, and mobility days
+- 🥗 **Diet Plan**:  
+  - Sample Indian-style meals  
+  - Breakfast, lunch, dinner, snacks  
+  - Hydration guidelines
+- 💬 **Tips & Motivation**:
+  - Lifestyle advice  
+  - Posture & form tips  
+  - Sleep & stress management  
+  - Motivational lines
+
+The prompt is designed to return **strict JSON**:
+
+```json
+{
+  "workoutPlan": "...",
+  "dietPlan": "...",
+  "tips": "..."
+}
+
+
+I TRIED A LOT TO FIND AI APY KEY BUT I COULDN.T FOUND IT THATS WHY I USED FREE GEMINI API KEY BUT SOMETIME IT FAILED THATS WHY I ALSO USED THE MOCK DATA WITH ALL THE 
